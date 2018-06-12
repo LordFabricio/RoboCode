@@ -1,8 +1,8 @@
-<h3> Projeto Robocode </h3> 
+<h1> Projeto Robocode </h1> 
 
-<h2> Analise e Desenvolvimento de Sistemas </h2>
+<h3> Analise e Desenvolvimento de Sistemas </h3>
 
-<h1> Membros do Grupo: </h1>
+<h2> Membros do Grupo: </h2>
 
 <p><h2> 3º Semestre </h2></p>
 <p> Fabricio Reyes Mota </p>
@@ -16,9 +16,9 @@
 
 <p> Instalando RoboCode: </p>
 <p> Baixe arquivo do robocode-1.9.3.2-setup.jar(10.2MB) </p>
-https://sourceforge.net/projects/robocode/files/
+<p> https://sourceforge.net/projects/robocode/files/ </p>
 
 <p> Instale o Java no PC: </p>
-https://www.java.com/pt_BR/
+<p> https://www.java.com/pt_BR/ </p>
 
 <p> O NetBeans é opcional afinal toda a codificação dos robos pode ser feita direto do RoboCode. </p>
