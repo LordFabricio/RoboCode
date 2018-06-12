@@ -1,16 +1,16 @@
-package Tropadeelite;
+package Fatec2018;
 import robocode.*;
 //import java.awt.Color;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * ZeroSeis - a robot by (your name here)
+ * AspMathias - a robot by (your name here)
  */
-public class ZeroSeis extends Robot
+public class AspMathias extends Robot
 {
 	/**
-	 * run: ZeroSeis's default behavior
+	 * run: AspMathias's default behavior
 	 */
 	public void run() {
 		// Initialization of the robot should be put here

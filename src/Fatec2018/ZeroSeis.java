@@ -1,17 +1,16 @@
-package Tropadeelite;
-import java.awt.Color;
+package Fatec2018;
 import robocode.*;
 //import java.awt.Color;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * CapNascimento - a robot by (your name here)
+ * ZeroSeis - a robot by (your name here)
  */
-public class CapNascimento extends Robot
+public class ZeroSeis extends Robot
 {
 	/**
-	 * run: CapNascimento's default behavior
+	 * run: ZeroSeis's default behavior
 	 */
 	public void run() {
 		// Initialization of the robot should be put here
@@ -19,7 +18,7 @@ public class CapNascimento extends Robot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		// Robot main loop
 		while(true) {
