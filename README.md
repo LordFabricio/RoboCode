@@ -14,6 +14,7 @@
 <p> Vinicius Orlei Medeiros </p>
 <p> Eduardo Soares Ribeiro </p>
 
+<p><h2> Preparanto Ambiente </h2></p>
 <p> Instalando RoboCode: </p>
 <p> Baixe arquivo do robocode-1.9.3.2-setup.jar(10.2MB) </p>
 <p> https://sourceforge.net/projects/robocode/files/ </p>
