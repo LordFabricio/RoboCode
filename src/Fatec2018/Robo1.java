@@ -1,60 +1,76 @@
-package Fatec2018;
+package Robos;
 import robocode.*;
 
 public class Robo1 extends AdvancedRobot
 {
+// Variável para controlar o que fazer quando se iniciar a partida
 boolean inicio = true;
+// Controla o número de tiros que não acertaram o alvo, se perderam ou bateram na parede
 int erros;
-// Variavel de controle para verificar se o tiro foi acertado
-boolean tiro_ac = false;
+// Controla quantos tiros foram levados, se levar tiros demais ele faz um movimento de fuga
+int levou_tiro;
 
+// Faz sempre:
 public void run() {
+	// Controla se é o ínicio da partida e zera as variáveis (estava tendo problemas ao zerar na declaração, ela voltava para o valor declarado e não contava)
 	if (inicio == true) {
+	// Inicializa as variáveis com o valor 0
 	erros = 0;
+	levou_tiro = 0;
 	}
 	while(true) {
-		turnGunRight(10);
+		// Sempre gira o canhão se não estiver em uma outra função:
+		turnGunRight(180);
 	}
 }
+// Ao escanear um robô:
 public void onScannedRobot(ScannedRobotEvent e) {
+	// Se levou o tiro mais de 2 vezes, faz esta movimentação, e zera a variável responsável
+	if(levou_tiro > 2) {
+	turnRight(90);
+	setAhead(100);
+	levou_tiro = 0;
+	}
+	// Se errar mais de 2 tiros, se direciona ao inimigo e segue em frente, melhorando muito sua precisão
 	if (erros > 1) {
 	turnRight(e.getBearing());
+	// Vai em frente, pegando a distância do inimigo e diminuindo 30 pixels neste valor, para evitar colisão
 	setAhead(e.getDistance() - 30);
+	// Se certifica em zerar a variável de erros
 	m_erros(0,100);
 	}
 	//  Pega o valor do quanto o canhão deve virar em relação ao seu ângulo atual, usando uma função para normalizar o ângulo e buscar o menor caminho. O cálculo dentro do parênteses pega o 
-	// ângulo do inimigo em relação
+	// ângulo do inimigo em relação a tela, e adiciona o seu ângulo menos o ângulo do radar.
 	double mira = normalRelativeAngle((e.getBearing() + (getHeading() - getRadarHeading())));
-	// Dá o comando para o canhão virar em relação ao valor obtido pela função de normalizar ângulos:
-	
+	// Dá o comando para o canhão virar em relação ao valor obtido pela função de normalizar ângulos e mira para o inimigo:
 	turnGunRight(mira);
-	// Verifica se o último tiro foi acertado e se sim, atira com potência (3) e desativa a variável booleana responsável, caso contrário, atira com potência (1).
-	if (tiro_ac == true || e.getDistance() < 50) {
+	// Atira com potência máxima
 	fire(3);
-	} else{
-	fire(1);
-	}
 }
 
+// Ao levar um tiro de um inimigo 
 public void onHitByBullet(HitByBulletEvent e) {
-
+// Adicionar 1 a variável levou_tiro
+	levou_tiro++;
 }
 
+// Quando bater em uma parede...
 public void onHitWall(HitWallEvent e) {
-	// Quando bater na parede, andar para trás, vira para a esquerda e anda para frente.
+	// Quando bater na parede, anda para trás, vira para a esquerda e anda para frente.
 	setBack(20);
 	setTurnLeft(90);
 	setAhead(20);
 }
 
+// Quando um tiro seu acertar
 public void onBulletHit(BulletHitEvent event) {
-	// Quando a bala acertar o inimigo ativa a variável booleana para que possa ser verificada na hora de escolher a potência do tiro.
-	tiro_ac = true;
+// Diminui 1 a variável de erros
 	m_erros(0,1);
 }
 
+// Quando a bala se perde (não acerta nenhum robô)
 public void onBulletMissed(BulletMissedEvent event) {
-		tiro_ac = false;
+	// Adiciona 1 a variável de erros
 		m_erros(1,0);
 }
 
@@ -78,6 +94,8 @@ public double normalRelativeAngle(double angle) {
 		// Retorna o ângulo obtido.
 		return fixedAngle;
 	}
+	
+// Função para controlar a variável de erros, pode adicionar e incrementar. Se o valor estiver menor do que zero, ele iguala a 0, pois é o número mínimo possível.
 public void m_erros (int a, int d) {
 	if (a > 0) {
 		erros += a;
