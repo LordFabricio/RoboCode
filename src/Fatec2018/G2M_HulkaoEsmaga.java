@@ -1,16 +1,17 @@
 package Fatec2018;
+import java.awt.Color;
 import robocode.*;
 //import java.awt.Color;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * ZeroSeis - a robot by (your name here)
+ * G2M_HulkaoEsmaga - a robot by (your name here)
  */
-public class ZeroSeis extends Robot
+public class G2M_HulkaoEsmaga extends Robot
 {
 	/**
-	 * run: ZeroSeis's default behavior
+	 * run: G2M_HulkaoEsmaga's default behavior
 	 */
 	public void run() {
 		// Initialization of the robot should be put here
@@ -18,7 +19,7 @@ public class ZeroSeis extends Robot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+		setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		// Robot main loop
 		while(true) {
