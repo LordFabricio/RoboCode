@@ -1,57 +1,88 @@
 package Fatec2018;
-import java.awt.Color;
 import robocode.*;
-//import java.awt.Color;
 
-// API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
-
-/**
- * G2M_HulkaoEsmaga - a robot by (your name here)
- */
-public class G2M_HulkaoEsmaga extends Robot
+public class G2M_HulkaoEsmaga extends AdvancedRobot
 {
-	/**
-	 * run: G2M_HulkaoEsmaga's default behavior
-	 */
-	public void run() {
-		// Initialization of the robot should be put here
+// Variável para controlar o que fazer quando se iniciar a partida
+boolean inicio = true;
+boolean GunD = true;
 
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
-
-		setColors(Color.red,Color.blue,Color.green); // body,gun,radar
-
-		// Robot main loop
-		while(true) {
-			// Replace the next 4 lines with any behavior you would like
-			ahead(100);
-			turnGunRight(360);
-			back(100);
-			turnGunRight(360);
+// Faz sempre:
+public void run() {
+	
+	while(true) {
+		// Sempre gira o canhão se não estiver em uma outra função:
+		if (GunD == true)
+		turnGunRight(180);
+		else 
+		turnGunLeft(180);
+	}
+}
+// Ao escanear um robô:
+public void onScannedRobot(ScannedRobotEvent e) {
+	// Verifica se não é alguém do seu time, se sim, retorna:
+		String name = e.getName();
+		if (name.indexOf("G2M") != -1) {
+		System.out.println("saiu");
+		return;
 		}
-	}
+	setTurnRight(e.getBearing());
+	setAhead(e.getDistance() - 10);
 
-	/**
-	 * onScannedRobot: What to do when you see another robot
-	 */
-	public void onScannedRobot(ScannedRobotEvent e) {
-		// Replace the next line with any behavior you would like
-		fire(1);
-	}
-
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
-	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
-		back(10);
+	//  Pega o valor do quanto o canhão deve virar em relação ao seu ângulo atual, usando uma função para normalizar o ângulo e buscar o menor caminho. O cálculo dentro do parênteses pega o 
+	// ângulo do inimigo em relação a tela, e adiciona o seu ângulo menos o ângulo do radar.
+	double mira = normalRelativeAngle((e.getBearing() + (getHeading() - getRadarHeading())));
+	// Dá o comando para o canhão virar em relação ao valor obtido pela função de normalizar ângulos e mira para o inimigo:
+	turnGunRight(mira);
+	// Atira com potência máxima
+	if (e.getDistance() < 80) {
+	fire(3);
+	GunD = !GunD;
 	}
 	
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
-	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
-		back(20);
-	}	
+}
+
+// Ao levar um tiro de um inimigo 
+public void onHitByBullet(HitByBulletEvent e) {
+
+}
+
+// Quando bater em uma parede...
+public void onHitWall(HitWallEvent e) {
+	// Quando bater na parede, anda para trás, vira para a esquerda e anda para frente.
+	setBack(20);
+	setTurnLeft(90);
+	setAhead(20);
+}
+
+// Quando um tiro seu acertar
+public void onBulletHit(BulletHitEvent event) {
+
+}
+
+// Quando a bala se perde (não acerta nenhum robô)
+public void onBulletMissed(BulletMissedEvent event) {
+
+}
+
+// Normalização dos ângulos
+public double normalRelativeAngle(double angle) {
+		// Se o ângulo estiver entre -180° e 180° retorna o ângulo, por não ser preciso normalizar.
+		if (angle > -180 && angle <= 180) {
+			return angle;
+		}
+		// Cria uma nova variável para dar retorno com o novo valor.
+		double fixedAngle = angle;
+ 
+		// Enquanto menos que -180° adiciona 360° para normalizar o ângulo ao sistema.
+		while (fixedAngle <= -180) {
+			fixedAngle += 360;
+		}
+		// Enquanto maior que 180° diminiui 360° para pegar o ângulo equivalente.
+		while (fixedAngle > 180) {
+			fixedAngle -= 360;
+		}
+		// Retorna o ângulo obtido.
+		return fixedAngle;
+	}
 }
