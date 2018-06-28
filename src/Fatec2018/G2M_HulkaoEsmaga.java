@@ -1,5 +1,6 @@
 package Fatec2018;
 import robocode.*;
+import java.awt.Color;
 
 public class G2M_HulkaoEsmaga extends AdvancedRobot
 {
@@ -9,23 +10,25 @@ boolean GunD = true;
 
 // Faz sempre:
 public void run() {
-	
+	// Seta as cores da equipe:
+	setBodyColor(new Color(255, 0, 0));
+	setGunColor(new Color(255, 0, 0));
+	setRadarColor(new Color(0, 0, 0));
 	while(true) {
-		// Sempre gira o canhão se não estiver em uma outra função:
-		if (GunD == true)
-		turnGunRight(180);
-		else 
-		turnGunLeft(180);
+	// Sempre gira o canhão se não estiver em uma outra função:
+	if (GunD == true)
+            turnGunRight(180);
+	else 
+            turnGunLeft(180);
 	}
 }
 // Ao escanear um robô:
 public void onScannedRobot(ScannedRobotEvent e) {
 	// Verifica se não é alguém do seu time, se sim, retorna:
-		String name = e.getName();
-		if (name.indexOf("G2M") != -1) {
-		System.out.println("saiu");
-		return;
-		}
+	String name = e.getName();
+	if (name.indexOf("G2M") != -1) {
+            return;
+	}
 	setTurnRight(e.getBearing());
 	setAhead(e.getDistance() - 10);
 
@@ -49,7 +52,7 @@ public void onHitByBullet(HitByBulletEvent e) {
 
 // Quando bater em uma parede...
 public void onHitWall(HitWallEvent e) {
-	// Quando bater na parede, anda para trás, vira para a esquerda e anda para frente.
+// Quando bater na parede, anda para trás, vira para a esquerda e anda para frente.
 	setBack(20);
 	setTurnLeft(90);
 	setAhead(20);
@@ -84,5 +87,15 @@ public double normalRelativeAngle(double angle) {
 		}
 		// Retorna o ângulo obtido.
 		return fixedAngle;
+	}
+	
+	// Se o Hulk bater em um inimigo: 
+	public void onHitRobot(HitRobotEvent e) {
+		// Recua e vira para a esquerda se for da equipe
+		String name = e.getName();
+		if (name.indexOf("G2M") != -1) {
+		back(50);
+		turnRight(90);
+		}
 	}
 }
