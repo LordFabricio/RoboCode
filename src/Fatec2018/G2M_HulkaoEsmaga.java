@@ -26,7 +26,7 @@ public void run() {
 public void onScannedRobot(ScannedRobotEvent e) {
 	// Verifica se não é alguém do seu time, se sim, retorna:
 	String name = e.getName();
-	if (name.indexOf("G2M") != -1) {
+	if (name.indexOf("G2M") != -1  || name.indexOf("Border") != -1) {
             return;
 	}
 	setTurnRight(e.getBearing());
@@ -93,7 +93,7 @@ public double normalRelativeAngle(double angle) {
 	public void onHitRobot(HitRobotEvent e) {
 		// Recua e vira para a esquerda se for da equipe
 		String name = e.getName();
-		if (name.indexOf("G2M") != -1) {
+		if (name.indexOf("G2M") != -1  || name.indexOf("Border") != -1) {
 		back(50);
 		turnRight(90);
 		}

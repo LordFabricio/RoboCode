@@ -101,7 +101,7 @@ public class G2M_Mercurio extends AdvancedRobot
     public void onScannedRobot(ScannedRobotEvent e) {
 		// Verifica se não é alguém do seu time, se sim, retorna:
 		String name = e.getName();
-		if (name.indexOf("G2M") != -1) {
+		if (name.indexOf("G2M") != -1  || name.indexOf("Border") != -1) {
                     return;
 		}
 		if (e.getDistance() < 200) {

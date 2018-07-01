@@ -131,7 +131,7 @@ public void run() {
 public void onScannedRobot(ScannedRobotEvent e) {
 	// Verifica se não é alguém do seu time, se sim, retorna:
 		String name = e.getName();
-		if (name.indexOf("G2M") != -1) {
+		if (name.indexOf("G2M") != -1  || name.indexOf("Border") != -1) {
 		return;
 		}
 	// Se levou o tiro mais de 2 vezes, faz esta movimentação, e zera a variável responsável
@@ -229,7 +229,7 @@ public void andar () {
 	public void onHitRobot(HitRobotEvent e) {
 		// Recua e vira a direita se for amigo
 		String name = e.getName();
-		if (name.indexOf("G2M") != -1) {
+		if (name.indexOf("G2M") != -1  || name.indexOf("Border") != -1) {
 		back(50);
 		turnRight(90);
 		}
