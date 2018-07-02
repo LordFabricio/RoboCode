@@ -1,4 +1,4 @@
-package Fatec2018;
+package fatec2018;
 import robocode.*;
 import java.awt.Color;
 
